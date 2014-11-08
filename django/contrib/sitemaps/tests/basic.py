@@ -44,7 +44,7 @@ class SitemapTests(TestCase):
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <sitemap><loc>%s/simple/sitemap-simple.xml</loc></sitemap>
 </sitemapindex>
-""" % self.base_url)
+""" % settings.DJANGO_URL)
 
     def test_simple_sitemap_custom_index(self):
         "A simple sitemap index can be rendered with a custom template"
@@ -56,7 +56,7 @@ class SitemapTests(TestCase):
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <sitemap><loc>%s/simple/sitemap-simple.xml</loc></sitemap>
 </sitemapindex>
-""" % self.base_url)
+""" % settings.DJANGO_URL)
 
     def test_simple_sitemap(self):
         "A simple sitemap can be rendered"
@@ -67,7 +67,7 @@ class SitemapTests(TestCase):
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>%s/location/</loc><lastmod>%s</lastmod><changefreq>never</changefreq><priority>0.5</priority></url>
 </urlset>
-""" % (self.base_url, date.today().strftime('%Y-%m-%d')))
+""" % (settings.DJANGO_URL, date.today().strftime('%Y-%m-%d')))
 
     def test_simple_custom_sitemap(self):
         "A simple sitemap can be rendered with a custom template"
@@ -79,7 +79,7 @@ class SitemapTests(TestCase):
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>%s/location/</loc><lastmod>%s</lastmod><changefreq>never</changefreq><priority>0.5</priority></url>
 </urlset>
-""" % (self.base_url, date.today().strftime('%Y-%m-%d')))
+""" % (settings.DJANGO_URL, date.today().strftime('%Y-%m-%d')))
 
     @skipUnless(settings.USE_I18N, "Internationalization is not enabled")
     def test_localized_priority(self):
@@ -103,7 +103,7 @@ class SitemapTests(TestCase):
 
         expected = ''
         for username in User.objects.values_list("username", flat=True):
-            expected += "<url><loc>%s/users/%s/</loc></url>" % (self.base_url, username)
+            expected += "<url><loc>%s/users/%s/</loc></url>" % (settings.DJANGO_URL, username)
         # Check for all the important bits:
         self.assertEqual(response.content, """<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
